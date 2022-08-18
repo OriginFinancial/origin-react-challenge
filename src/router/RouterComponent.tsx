@@ -1,1 +1,0 @@
-//Add <Outlet> and <Route> list https://reactrouter.com/docs/en/v6/components/outlet#outlet
