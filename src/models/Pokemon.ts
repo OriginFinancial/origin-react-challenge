@@ -4,3 +4,8 @@ export interface Pokemon {
   pictureUrl: string;
   type: string;
 }
+
+export interface PokemonApiNode {
+  name: string;
+  url: string;
+}
