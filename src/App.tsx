@@ -1,29 +1,61 @@
 import React from 'react';
-import './App.css';
-import {BrowserRouter, Outlet, Route, Routes} from 'react-router-dom';
-import {AppRoutes} from './router/AppRoutes';
-import {PokemonListScreen} from './screens/PokemonListScreen';
+import styled from 'styled-components';
 
-const Layout = () => {
+import './App.css';
+import { usePokemonApi } from './hooks/usePokemonApi';
+import { Header } from './components/Header';
+import { Button } from './components/Button';
+import {PokemonCard} from './components/PokemonCard';
+import { ReactComponent as Logo } from './assets/logo.icon.svg';
+
+const Container = styled.div`
+  margin: 0 auto;
+  max-width: 1366px;
+  padding: 1.5rem;
+`;
+
+const PageContainer = styled.div`
+  margin: 0 auto;
+  max-width: 1366px;
+  padding: 1.5rem;
+`;
+
+const PokemonContainer = styled.div`
+  display: flex;
+  gap: 3rem;
+  flex-wrap: wrap;
+  justify-content: space-between;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 3rem;
+`
+
+const App = () => {
+  const {pokemons: pokemonList, loadMore} = usePokemonApi();
+
   return (
     <div>
-      <Outlet />
+      <Header>
+        <Container>
+          <Logo/>
+        </Container>
+      </Header>
+      <PageContainer>
+        <PokemonContainer>
+          {pokemonList.map((pokemon, index) => {
+            return (
+              <PokemonCard key={index} pokemon={pokemon}/>
+            );
+          })}
+        </PokemonContainer>
+        <ButtonContainer>
+          <Button onClick={() => loadMore()}>Load more</Button>
+        </ButtonContainer>
+      </PageContainer>
     </div>
-  );
-}
-
-function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route
-            path={AppRoutes.POKEMON_LIST}
-            element={<PokemonListScreen />}
-          />
-        </Route>
-      </Routes>
-    </BrowserRouter>
   );
 }
 

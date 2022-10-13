@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
-import {api} from '../api/service';
+
+import { api } from '../api/service';
 import { Pokemon, PokemonApiNode } from '../models/Pokemon';
 
 export const usePokemonApi = () => {
@@ -36,7 +37,6 @@ export const usePokemonApi = () => {
   }
 
   React.useEffect(() => {
-    console.log(`bbb`)
     api
       .get('pokemon?limit=9')
       .then((res) => {
