@@ -1,24 +1,60 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import styled from 'styled-components';
 
-function App() {
+import './App.css';
+import { usePokemonApi } from './hooks/usePokemonApi';
+import { Header } from './components/Header';
+import { Button } from './components/Button';
+import {PokemonCard} from './components/PokemonCard';
+import { ReactComponent as Logo } from './assets/logo.icon.svg';
+
+const Container = styled.div`
+  margin: 0 auto;
+  max-width: 1366px;
+  padding: 1.5rem;
+`;
+
+const PageContainer = styled.div`
+  margin: 0 auto;
+  max-width: 1366px;
+  padding: 1.5rem;
+`;
+
+const PokemonContainer = styled.div`
+  display: flex;
+  gap: 3rem;
+  flex-wrap: wrap;
+  justify-content: space-between;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 3rem;
+`
+
+const App = () => {
+  const {pokemons: pokemonList, loadMore} = usePokemonApi();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Header>
+        <Container>
+          <Logo/>
+        </Container>
+      </Header>
+      <PageContainer>
+        <PokemonContainer>
+          {pokemonList.map((pokemon, index) => {
+            return (
+              <PokemonCard key={index} pokemon={pokemon}/>
+            );
+          })}
+        </PokemonContainer>
+        <ButtonContainer>
+          <Button onClick={() => loadMore()}>Load more</Button>
+        </ButtonContainer>
+      </PageContainer>
     </div>
   );
 }
