@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import './App.css';
 import { usePokemonApi } from './hooks/usePokemonApi';
 import { Header } from './components/Header';
 import { Button } from './components/Button';
