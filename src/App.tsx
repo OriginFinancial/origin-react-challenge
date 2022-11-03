@@ -1,12 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import './App.css';
-import { usePokemonApi } from './hooks/usePokemonApi';
-import { Header } from './components/Header';
-import { Button } from './components/Button';
-import {PokemonCard} from './components/PokemonCard';
 import { ReactComponent as Logo } from './assets/logo.icon.svg';
+import { Button } from './components/Button';
+import { Header } from './components/Header';
+import { PokemonCard } from './components/PokemonCard';
+import { usePokemonApi } from './hooks/usePokemonApi';
+
+const Wrapper = styled.div`
+  margin: 0 auto;
+  max-width: 1366px;
+  padding: 1.5rem;
+`;
 
 const Container = styled.div`
   margin: 0 auto;
@@ -14,13 +19,7 @@ const Container = styled.div`
   padding: 1.5rem;
 `;
 
-const PageContainer = styled.div`
-  margin: 0 auto;
-  max-width: 1366px;
-  padding: 1.5rem;
-`;
-
-const PokemonContainer = styled.div`
+const ListWrapper = styled.div`
   display: flex;
   gap: 3rem;
   flex-wrap: wrap;
@@ -34,27 +33,27 @@ const ButtonContainer = styled.div`
 `
 
 const App = () => {
-  const {pokemons: pokemonList, loadMore} = usePokemonApi();
+  const {pokemon: pokemonList, loadMore} = usePokemonApi();
 
   return (
     <div>
       <Header>
-        <Container>
+        <Wrapper>
           <Logo/>
-        </Container>
+        </Wrapper>
       </Header>
-      <PageContainer>
-        <PokemonContainer>
+      <Container>
+        <ListWrapper>
           {pokemonList.map((pokemon, index) => {
             return (
               <PokemonCard key={index} pokemon={pokemon}/>
             );
           })}
-        </PokemonContainer>
+        </ListWrapper>
         <ButtonContainer>
           <Button onClick={() => loadMore()}>Load more</Button>
         </ButtonContainer>
-      </PageContainer>
+      </Container>
     </div>
   );
 }

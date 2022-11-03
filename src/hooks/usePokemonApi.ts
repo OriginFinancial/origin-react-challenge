@@ -4,7 +4,7 @@ import { api } from '../api/service';
 import { Pokemon, PokemonApiNode } from '../models/Pokemon';
 
 export const usePokemonApi = () => {
-  const [pokemons, setPokemons] = React.useState<Pokemon[]>([]);
+  const [pokemon, setPokemon] = React.useState<Pokemon[]>([]);
 
   const mapPokemon = (data: any) => {
     const newPokemon: Pokemon = {
@@ -13,7 +13,7 @@ export const usePokemonApi = () => {
       pictureUrl: data.sprites.other.dream_world.front_default,
       type: data.types[0].type.name
     }
-    setPokemons(current => [...current, newPokemon])
+    setPokemon(current => [...current, newPokemon])
   }
 
   const getPokemonDetails = useMemo(() => (pokemonList: PokemonApiNode[]) => {
@@ -29,7 +29,7 @@ export const usePokemonApi = () => {
 
   const loadMore = () => {
     api
-      .get(`pokemon?limit=9&offset=${pokemons.length + 1}`)
+      .get(`pokemon?limit=9&offset=${pokemon.length + 1}`)
       .then((res) => {
         getPokemonDetails(res.data.results);
       })
@@ -46,7 +46,7 @@ export const usePokemonApi = () => {
   }, [getPokemonDetails])
 
   return {
-    pokemons,
+    pokemon,
     loadMore
   }
 }
