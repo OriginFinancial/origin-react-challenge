@@ -14,7 +14,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ```
 yarn install
 yart start
-
 ```
 
 Runs the app in the development mode.\
